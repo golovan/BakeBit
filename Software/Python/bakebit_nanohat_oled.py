@@ -226,7 +226,7 @@ def draw_page():
             tempI = tempI/1000
         tempStr = "CPU TEMP: %sC" % str(tempI)
 
-        draw.text((x, top+2),       "IP: " + str(IPAddress),  font=smartFont, fill=255)
+        draw.text((x, top+2),       "IP: " + str(IPAddress.decode('utf-8')),  font=smartFont, fill=255)
         draw.text((x, top+2+12),    str(CPU), font=smartFont, fill=255)
         draw.text((x, top+2+24),    str(MemUsage),  font=smartFont, fill=255)
         draw.text((x, top+2+36),    str(Disk),  font=smartFont, fill=255)
@@ -246,21 +246,21 @@ def draw_page():
             IPAddress = get_ip()
         
         cmd = "curl -f -s http://127.0.0.1/admin/api.php | jq .dns_queries_today"
-        Queries = subprocess.check_output(cmd, shell = True ).strip()
+        Queries = subprocess.check_output(cmd, shell = True ).strip().decode('utf-8')
         cmd = "curl -f -s http://127.0.0.1/admin/api.php | jq .ads_blocked_today"
-        AdsToday = subprocess.check_output(cmd, shell = True ).strip()
+        AdsToday = subprocess.check_output(cmd, shell = True ).strip().decode('utf-8')
         cmd = "curl -f -s http://127.0.0.1/admin/api.php | jq .ads_percentage_today"
         AdsPercentage = to_float(subprocess.check_output(cmd, shell = True ).strip())
         cmd = "curl -f -s http://127.0.0.1/admin/api.php | jq .clients_ever_seen"
-        ClientsEver = subprocess.check_output(cmd, shell = True ).strip()
+        ClientsEver = subprocess.check_output(cmd, shell = True ).strip().decode('utf-8')
         cmd = "curl -f -s http://127.0.0.1/admin/api.php | jq .unique_clients"
-        ClientsUnique = subprocess.check_output(cmd, shell = True ).strip()
+        ClientsUnique = subprocess.check_output(cmd, shell = True ).strip().decode('utf-8')
 
-        draw.text((x, top+2),       "IP: " + str(IPAddress),  font=smartFont, fill=255)
+        draw.text((x, top+2),       "IP: " + str(IPAddress.decode('utf-8')),  font=smartFont, fill=255)
         draw.text((x, top+2+12),    "Queries: " + str(Queries), font=smartFont, fill=255)
         draw.text((x, top+2+24),    "Blocked: " + str(AdsToday),  font=smartFont, fill=255)
         draw.text((x, top+2+36),    "Percent: " + str(AdsPercentage),  font=smartFont, fill=255)
-        draw.text((x, top+2+48),    "Clients: " + str(ClientsUnique),  font=smartFont, fill=255)
+        draw.text((x, top+2+48),    "Clients: " + str(ClientsUnique) + "/" + str(ClientsEver),  font=smartFont, fill=255)
     elif page_index==3: #Disable Pi-Hole for some senconds? -- no
         draw.text((2, 2),  'Disable ' + str( int(float(disableTimeSeconds)/60) ) + 'min?',  font=fontb14, fill=255)
 
