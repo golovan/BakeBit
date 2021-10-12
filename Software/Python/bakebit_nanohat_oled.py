@@ -281,7 +281,7 @@ def draw_page():
 
     elif page_index==5:
         cmd = "curl -f -s http://127.0.0.1/admin/api.php | jq .status"
-        status = subprocess.check_output(cmd, shell = True ).strip()
+        status = subprocess.check_output(cmd, shell = True ).strip().decode('utf-8')
         if str(status) == "\"disabled\"":
             enabledCounter = 0
             draw.text((2, 2),  'Disabled',  font=fontb14, fill=255)
@@ -378,7 +378,7 @@ def receive_signal(signum, stack):
     if signum == signal.SIGALRM:
         print ('K3 pressed')
         cmd = "curl -f -s http://127.0.0.1/admin/api.php | jq .status"
-        status = subprocess.check_output(cmd, shell = True ).strip()
+        status = subprocess.check_output(cmd, shell = True ).strip().decode('utf-8')
         if str(status) == "\"disabled\"":
             enabledCounter = 0
             update_page_index(5)
