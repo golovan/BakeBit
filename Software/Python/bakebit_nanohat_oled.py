@@ -381,6 +381,7 @@ def receive_signal(signum, stack):
         print ('K3 pressed')
         cmd = "curl -f -s http://127.0.0.1/admin/api.php | jq .status"
         status = subprocess.check_output(cmd, shell = True ).strip().decode('utf-8')
+        print(status)
         if str(status) == "\"disabled\"":
             enabledCounter = 0
             update_page_index(5)
