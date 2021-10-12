@@ -209,7 +209,7 @@ def draw_page():
         bottom = height-padding
         # Move left to right keeping track of the current x position for drawing shapes.
         x = 0
-        
+
         try:
             IPAddress = get_ip_address('eth0')
         except:
@@ -239,12 +239,12 @@ def draw_page():
         bottom = height-padding
         # Move left to right keeping track of the current x position for drawing shapes.
         x = 0
-        
+
         try:
             IPAddress = get_ip_address('eth0')
         except:
             IPAddress = get_ip()
-        
+
         cmd = "curl -f -s http://127.0.0.1/admin/api.php | jq .dns_queries_today"
         Queries = subprocess.check_output(cmd, shell = True ).strip().decode('utf-8')
         cmd = "curl -f -s http://127.0.0.1/admin/api.php | jq .ads_blocked_today"
