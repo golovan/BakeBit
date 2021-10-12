@@ -209,13 +209,18 @@ def draw_page():
         bottom = height-padding
         # Move left to right keeping track of the current x position for drawing shapes.
         x = 0
-        IPAddress = get_ip()
+        
+        try:
+            IPAddress = get_ip_address('eth0')
+        except:
+            IPAddress = get_ip()
+
         cmd = "top -bn1 | grep load | awk '{printf \"CPU Load: %.2f\", $(NF-2)}'"
-        CPU = subprocess.check_output(cmd, shell = True )
+        CPU = subprocess.check_output(cmd, shell = True ).decode('utf-8')
         cmd = "free -m | awk 'NR==2{printf \"Mem: %s/%sMB %.2f%%\", $3,$2,$3*100/$2 }'"
-        MemUsage = subprocess.check_output(cmd, shell = True )
+        MemUsage = subprocess.check_output(cmd, shell = True ).decode('utf-8')
         cmd = "df -h | awk '$NF==\"/\"{printf \"Disk: %d/%dGB %s\", $3,$2,$5}'"
-        Disk = subprocess.check_output(cmd, shell = True )
+        Disk = subprocess.check_output(cmd, shell = True ).decode('utf-8')
         tempI = int(open('/sys/class/thermal/thermal_zone0/temp').read());
         if tempI>1000:
             tempI = tempI/1000
@@ -234,20 +239,12 @@ def draw_page():
         bottom = height-padding
         # Move left to right keeping track of the current x position for drawing shapes.
         x = 0
+        
         try:
             IPAddress = get_ip_address('eth0')
         except:
             IPAddress = get_ip()
-        cmd = "top -bn1 | grep load | awk '{printf \"CPU Load: %.2f\", $(NF-2)}'"
-        CPU = subprocess.check_output(cmd, shell=True).decode('utf-8')
-        cmd = "free -m | awk 'NR==2{printf \"Mem: %s/%sMB %.2f%%\", $3,$2,$3*100/$2 }'"
-        MemUsage = subprocess.check_output(cmd, shell=True).decode('utf-8')
-        cmd = "df -h | awk '$NF==\"/\"{printf \"Disk: %d/%dGB %s\", $3,$2,$5}'"
-        Disk = subprocess.check_output(cmd, shell=True).decode('utf-8')
-        tempI = int(open('/sys/class/thermal/thermal_zone0/temp').read());
-        if tempI>1000:
-            tempI = tempI/1000
-        tempStr = "CPU TEMP: %sC" % str(tempI)
+        
         cmd = "curl -f -s http://127.0.0.1/admin/api.php | jq .dns_queries_today"
         Queries = subprocess.check_output(cmd, shell = True ).strip()
         cmd = "curl -f -s http://127.0.0.1/admin/api.php | jq .ads_blocked_today"
