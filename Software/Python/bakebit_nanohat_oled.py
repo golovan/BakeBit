@@ -226,7 +226,7 @@ def draw_page():
             tempI = tempI/1000
         tempStr = "CPU TEMP: %sC" % str(tempI)
 
-        draw.text((x, top+2),       "IP: " + str(IPAddress.decode('utf-8')),  font=smartFont, fill=255)
+        draw.text((x, top+2),       "IP: " + str(IPAddress),  font=smartFont, fill=255)
         draw.text((x, top+2+12),    str(CPU), font=smartFont, fill=255)
         draw.text((x, top+2+24),    str(MemUsage),  font=smartFont, fill=255)
         draw.text((x, top+2+36),    str(Disk),  font=smartFont, fill=255)
@@ -256,7 +256,7 @@ def draw_page():
         cmd = "curl -f -s http://127.0.0.1/admin/api.php | jq .unique_clients"
         ClientsUnique = subprocess.check_output(cmd, shell = True ).strip().decode('utf-8')
 
-        draw.text((x, top+2),       "IP: " + str(IPAddress.decode('utf-8')),  font=smartFont, fill=255)
+        draw.text((x, top+2),       "IP: " + str(IPAddress),  font=smartFont, fill=255)
         draw.text((x, top+2+12),    "Queries: " + str(Queries), font=smartFont, fill=255)
         draw.text((x, top+2+24),    "Blocked: " + str(AdsToday),  font=smartFont, fill=255)
         draw.text((x, top+2+36),    "Percent: " + str(AdsPercentage),  font=smartFont, fill=255)
