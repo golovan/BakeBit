@@ -280,7 +280,7 @@ def draw_page():
         draw.text((4, 40),  'No',  font=font11, fill=255)
 
     elif page_index==5:
-        cmd = "curl -f -s http://127.0.0.1/admin/api.php | jq .status"
+        cmd = "curl -f -s http://127.0.0.1/admin/api.php?status | jq .status"
         status = subprocess.check_output(cmd, shell = True ).strip().decode('utf-8')
         print(cmd)
         print(status)
@@ -382,7 +382,7 @@ def receive_signal(signum, stack):
 
     if signum == signal.SIGALRM:
         print ('K3 pressed')
-        cmd = "curl -f -s http://127.0.0.1/admin/api.php | jq .status"
+        cmd = "curl -f -s http://127.0.0.1/admin/api.php?status | jq .status"
         status = subprocess.check_output(cmd, shell = True ).strip().decode('utf-8')
         print(cmd)
         print(status)
