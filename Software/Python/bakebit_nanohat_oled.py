@@ -360,7 +360,7 @@ def receive_signal(signum, stack):
         print ('K2 pressed')
         if is_showing_disable_msgbox():
             if page_index==4:
-                cmd = "curl -f -s \"http://127.0.0.1/admin/api.php?disable=" + str(disableTimeSeconds) + "&auth=$(docker exec -i pihole grep -oPi \"(?<=WEBPASSWORD\=).+\" /etc/pihole/setupVars.conf)\" | jq .status"
+                cmd = "curl -f -s \"http://127.0.0.1/admin/api.php?disable=" + str(disableTimeSeconds) + "&auth=$(grep -oPi \"(?<=WEBPASSWORD\=).+\" /etc/pihole/setupVars.conf)\" | jq .status"
                 status = subprocess.check_output(cmd, shell = True )
                 lock.acquire()
                 disableCounter=disableTimeSeconds
