@@ -287,6 +287,7 @@ def draw_page():
         if str(status) == "\"disabled\"":
             enabledCounter = 0
             draw.text((2, 2),  'Disabled',  font=fontb14, fill=255)
+            print(disableCounter)
             if disableCounter > 0:
                 draw.text((2, 20),  str(datetime.timedelta(seconds=disableCounter)),  font=fontb24, fill=255)
                 draw.rectangle((2,47,int(float(width-4)*(float(disableCounter)/float(disableTimeSeconds))),47+15), outline=0, fill=255)
