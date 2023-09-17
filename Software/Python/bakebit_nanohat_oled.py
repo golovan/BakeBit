@@ -250,17 +250,18 @@ def draw_page():
         cmd = "curl -f -s \"http://127.0.0.1/admin/api.php?summary&auth=$(docker exec -i pihole grep -oPi \"(?<=WEBPASSWORD\=).+\" /etc/pihole/setupVars.conf)\" | jq .ads_blocked_today"
         AdsToday = subprocess.check_output(cmd, shell = True ).strip().decode('utf-8')
         cmd = "curl -f -s \"http://127.0.0.1/admin/api.php?summary&auth=$(docker exec -i pihole grep -oPi \"(?<=WEBPASSWORD\=).+\" /etc/pihole/setupVars.conf)\" | jq .ads_percentage_today"
-        AdsPercentage = to_float(subprocess.check_output(cmd, shell = True ).strip())
+        AdsPercentage = to_float(subprocess.check_output(cmd, shell = True ).strip()).decode('utf-8')
         cmd = "curl -f -s \"http://127.0.0.1/admin/api.php?summary&auth=$(docker exec -i pihole grep -oPi \"(?<=WEBPASSWORD\=).+\" /etc/pihole/setupVars.conf)\" | jq .clients_ever_seen"
         ClientsEver = subprocess.check_output(cmd, shell = True ).strip().decode('utf-8')
         cmd = "curl -f -s \"http://127.0.0.1/admin/api.php?summary&auth=$(docker exec -i pihole grep -oPi \"(?<=WEBPASSWORD\=).+\" /etc/pihole/setupVars.conf)\" | jq .unique_clients"
         ClientsUnique = subprocess.check_output(cmd, shell = True ).strip().decode('utf-8')
+        print(ClientsUnique)
 
         draw.text((x, top+2),       "IP: " + str(IPAddress),  font=smartFont, fill=255)
-        draw.text((x, top+2+12),    "Queries: " + (Queries), font=smartFont, fill=255)
-        draw.text((x, top+2+24),    "Blocked: " + (AdsToday),  font=smartFont, fill=255)
-        draw.text((x, top+2+36),    "Percent: " + (AdsPercentage),  font=smartFont, fill=255)
-        draw.text((x, top+2+48),    "Clients: " + (ClientsUnique) + "/" + (ClientsEver),  font=smartFont, fill=255)
+        draw.text((x, top+2+12),    "Queries: " + str(Queries), font=smartFont, fill=255)
+        draw.text((x, top+2+24),    "Blocked: " + str(AdsToday),  font=smartFont, fill=255)
+        draw.text((x, top+2+36),    "Percent: " + str(AdsPercentage),  font=smartFont, fill=255)
+        draw.text((x, top+2+48),    "Clients: " + str(ClientsUnique) + "/" + (ClientsEver),  font=smartFont, fill=255)
     elif page_index==3: #Disable Pi-Hole for some senconds? -- no
         draw.text((2, 2),  'Disable ' + str( int(float(disableTimeSeconds)/60) ) + 'min?',  font=fontb14, fill=255)
 
