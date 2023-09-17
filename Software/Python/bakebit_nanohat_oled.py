@@ -258,9 +258,9 @@ def draw_page():
 
         draw.text((x, top+2),       "IP: " + str(IPAddress),  font=smartFont, fill=255)
         draw.text((x, top+2+12),    "Queries: " + str(Queries).strip('"'), font=smartFont, fill=255)
-        draw.text((x, top+2+24),    "Blocked: " + str(AdsToday),  font=smartFont, fill=255)
-        draw.text((x, top+2+36),    "Percent: " + str(AdsPercentage),  font=smartFont, fill=255)
-        draw.text((x, top+2+48),    "Clients: " + str(ClientsUnique) + "/" + (ClientsEver),  font=smartFont, fill=255)
+        draw.text((x, top+2+24),    "Blocked: " + str(AdsToday).strip('"'),  font=smartFont, fill=255)
+        draw.text((x, top+2+36),    "Percent: " + str(AdsPercentage).strip('"'),  font=smartFont, fill=255)
+        draw.text((x, top+2+48),    "Clients: " + str(ClientsUnique).strip('"') + "/" + (ClientsEver).strip('"'),  font=smartFont, fill=255)
     elif page_index==3: #Disable Pi-Hole for some senconds? -- no
         draw.text((2, 2),  'Disable ' + str( int(float(disableTimeSeconds)/60) ) + 'min?',  font=fontb14, fill=255)
 
