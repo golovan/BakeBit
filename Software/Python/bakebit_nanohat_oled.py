@@ -245,15 +245,15 @@ def draw_page():
         except:
             IPAddress = get_ip()
 
-        cmd = "curl -f -s \"http://127.0.0.1/admin/api.php?auth=$(docker exec -it pihole grep -oPi \"(?<=WEBPASSWORD\=).+\" /etc/pihole/setupVars.conf)\" | jq .dns_queries_today"
+        cmd = "curl -f -s \"http://127.0.0.1/admin/api.php?auth=$(docker exec -i pihole grep -oPi \"(?<=WEBPASSWORD\=).+\" /etc/pihole/setupVars.conf)\" | jq .dns_queries_today"
         Queries = subprocess.check_output(cmd, shell = True ).strip().decode('utf-8')
-        cmd = "curl -f -s \"http://127.0.0.1/admin/api.php?auth=$(docker exec -it pihole grep -oPi \"(?<=WEBPASSWORD\=).+\" /etc/pihole/setupVars.conf)\" | jq .ads_blocked_today"
+        cmd = "curl -f -s \"http://127.0.0.1/admin/api.php?auth=$(docker exec -i pihole grep -oPi \"(?<=WEBPASSWORD\=).+\" /etc/pihole/setupVars.conf)\" | jq .ads_blocked_today"
         AdsToday = subprocess.check_output(cmd, shell = True ).strip().decode('utf-8')
-        cmd = "curl -f -s \"http://127.0.0.1/admin/api.php?auth=$(docker exec -it pihole grep -oPi \"(?<=WEBPASSWORD\=).+\" /etc/pihole/setupVars.conf)\" | jq .ads_percentage_today"
+        cmd = "curl -f -s \"http://127.0.0.1/admin/api.php?auth=$(docker exec -i pihole grep -oPi \"(?<=WEBPASSWORD\=).+\" /etc/pihole/setupVars.conf)\" | jq .ads_percentage_today"
         AdsPercentage = to_float(subprocess.check_output(cmd, shell = True ).strip())
-        cmd = "curl -f -s \"http://127.0.0.1/admin/api.php?auth=$(docker exec -it pihole grep -oPi \"(?<=WEBPASSWORD\=).+\" /etc/pihole/setupVars.conf)\" | jq .clients_ever_seen"
+        cmd = "curl -f -s \"http://127.0.0.1/admin/api.php?auth=$(docker exec -i pihole grep -oPi \"(?<=WEBPASSWORD\=).+\" /etc/pihole/setupVars.conf)\" | jq .clients_ever_seen"
         ClientsEver = subprocess.check_output(cmd, shell = True ).strip().decode('utf-8')
-        cmd = "curl -f -s \"http://127.0.0.1/admin/api.php?auth=$(docker exec -it pihole grep -oPi \"(?<=WEBPASSWORD\=).+\" /etc/pihole/setupVars.conf)\" | jq .unique_clients"
+        cmd = "curl -f -s \"http://127.0.0.1/admin/api.php?auth=$(docker exec -i pihole grep -oPi \"(?<=WEBPASSWORD\=).+\" /etc/pihole/setupVars.conf)\" | jq .unique_clients"
         ClientsUnique = subprocess.check_output(cmd, shell = True ).strip().decode('utf-8')
 
         draw.text((x, top+2),       "IP: " + str(IPAddress),  font=smartFont, fill=255)
@@ -280,7 +280,7 @@ def draw_page():
         draw.text((4, 40),  'No',  font=font11, fill=255)
 
     elif page_index==5:
-        cmd = "curl -f -s \"http://127.0.0.1/admin/api.php?status&auth=$(docker exec -it pihole grep -oPi \"(?<=WEBPASSWORD\=).+\" /etc/pihole/setupVars.conf)\" | jq .status"
+        cmd = "curl -f -s \"http://127.0.0.1/admin/api.php?status&auth=$(docker exec -i pihole grep -oPi \"(?<=WEBPASSWORD\=).+\" /etc/pihole/setupVars.conf)\" | jq .status"
         status = subprocess.check_output(cmd, shell = True ).strip().decode('utf-8')
         print(cmd)
         print(status)
@@ -363,7 +363,7 @@ def receive_signal(signum, stack):
         print ('K2 pressed')
         if is_showing_disable_msgbox():
             if page_index==4:
-                cmd = "curl -f -s \"http://127.0.0.1/admin/api.php?disable=" + str(disableTimeSeconds) + "&auth=$(docker exec -it pihole grep -oPi \"(?<=WEBPASSWORD\=).+\" /etc/pihole/setupVars.conf)\" | jq .status"
+                cmd = "curl -f -s \"http://127.0.0.1/admin/api.php?disable=" + str(disableTimeSeconds) + "&auth=$(docker exec -i pihole grep -oPi \"(?<=WEBPASSWORD\=).+\" /etc/pihole/setupVars.conf)\" | jq .status"
                 status = subprocess.check_output(cmd, shell = True ).decode('utf-8')
                 print(cmd)
                 print(status)
@@ -382,7 +382,7 @@ def receive_signal(signum, stack):
 
     if signum == signal.SIGALRM:
         print ('K3 pressed')
-        cmd = "curl -f -s \"http://127.0.0.1/admin/api.php?status&auth=$(docker exec -it pihole grep -oPi \"(?<=WEBPASSWORD\=).+\" /etc/pihole/setupVars.conf)\" | jq .status"
+        cmd = "curl -f -s \"http://127.0.0.1/admin/api.php?status&auth=$(docker exec -i pihole grep -oPi \"(?<=WEBPASSWORD\=).+\" /etc/pihole/setupVars.conf)\" | jq .status"
         status = subprocess.check_output(cmd, shell = True ).strip().decode('utf-8')
         print(cmd)
         print(status)
