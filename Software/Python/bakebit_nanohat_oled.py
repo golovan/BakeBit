@@ -246,15 +246,15 @@ def draw_page():
             IPAddress = get_ip()
 
         cmd = "curl -f -s \"http://127.0.0.1/admin/api.php?summary&auth=$(docker exec -i pihole grep -oPi \"(?<=WEBPASSWORD\=).+\" /etc/pihole/setupVars.conf)\" | jq .dns_queries_today"
-        Queries = subprocess.check_output(cmd, shell = True ).strip().decode('utf-8')
+        Queries = subprocess.check_output(cmd, shell = True ).strip(' "\'\t\r\n').decode('utf-8')
         cmd = "curl -f -s \"http://127.0.0.1/admin/api.php?summary&auth=$(docker exec -i pihole grep -oPi \"(?<=WEBPASSWORD\=).+\" /etc/pihole/setupVars.conf)\" | jq .ads_blocked_today"
-        AdsToday = subprocess.check_output(cmd, shell = True ).strip().decode('utf-8')
+        AdsToday = subprocess.check_output(cmd, shell = True ).strip(' "\'\t\r\n').decode('utf-8')
         cmd = "curl -f -s \"http://127.0.0.1/admin/api.php?summary&auth=$(docker exec -i pihole grep -oPi \"(?<=WEBPASSWORD\=).+\" /etc/pihole/setupVars.conf)\" | jq .ads_percentage_today"
-        AdsPercentage = to_float(subprocess.check_output(cmd, shell = True ).strip()).decode('utf-8')
+        AdsPercentage = to_float(subprocess.check_output(cmd, shell = True ).strip(' "\'\t\r\n').decode('utf-8'))
         cmd = "curl -f -s \"http://127.0.0.1/admin/api.php?summary&auth=$(docker exec -i pihole grep -oPi \"(?<=WEBPASSWORD\=).+\" /etc/pihole/setupVars.conf)\" | jq .clients_ever_seen"
-        ClientsEver = subprocess.check_output(cmd, shell = True ).strip().decode('utf-8')
+        ClientsEver = subprocess.check_output(cmd, shell = True ).strip(' "\'\t\r\n').decode('utf-8')
         cmd = "curl -f -s \"http://127.0.0.1/admin/api.php?summary&auth=$(docker exec -i pihole grep -oPi \"(?<=WEBPASSWORD\=).+\" /etc/pihole/setupVars.conf)\" | jq .unique_clients"
-        ClientsUnique = subprocess.check_output(cmd, shell = True ).strip().decode('utf-8')
+        ClientsUnique = subprocess.check_output(cmd, shell = True ).strip(' "\'\t\r\n').decode('utf-8')
         print(ClientsUnique)
 
         draw.text((x, top+2),       "IP: " + str(IPAddress),  font=smartFont, fill=255)
