@@ -360,6 +360,8 @@ def receive_signal(signum, stack):
         print ('K1 released')
 
     if signum == signal.SIGUSR2:
+        print(signum)
+        print(signal.SIGUSR2)
         print ('K2 pressed')
         if is_showing_disable_msgbox():
             if page_index==4:
